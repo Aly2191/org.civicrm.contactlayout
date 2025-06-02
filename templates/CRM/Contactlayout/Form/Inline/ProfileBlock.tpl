@@ -1,6 +1,6 @@
 <div class="crm-inline-edit-form">
   <div class="crm-inline-button">
-    {include file="CRM/common/formButtons.tpl"}
+    {include file="CRM/common/formButtons.tpl" location="bottom"}
   </div>
   {if $help_pre}
     <div class="messages help">{$help_pre}</div>

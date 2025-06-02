@@ -410,7 +410,8 @@ class CRM_Contactlayout_BAO_ContactLayout extends CRM_Contactlayout_DAO_ContactL
    * @param $profiles
    * @param $customGroups
    */
-  public static function addBlockRelations(&$blocks, $profiles, $customGroups) {
+  public static function addBlockRelations(&$blocks, $profiles, $customGroups)
+  {
     $customFields = [];
     foreach ($customGroups as $group) {
       if (!empty($group['field_ids'])) {
@@ -459,24 +460,26 @@ class CRM_Contactlayout_BAO_ContactLayout extends CRM_Contactlayout_DAO_ContactL
         'url',
       ],
     ];
-    foreach ($profiles as $profile) {
-      $block =& $blocks['profile']['blocks'][$profile['uf_group_id.name']];
-      foreach ($profile['field_names'] as $fieldName) {
-        $fieldName = strtolower($fieldName);
-        if (str_starts_with($fieldName, 'custom_')) {
-          list(, $customId) = explode('_', $fieldName);
-          foreach ($customFields as $selector => $fields) {
-            if (in_array($customId, $fields) && !in_array($selector, $block['refresh'])) {
-              $block['refresh'][] = $selector;
-            }
-          }
-        }
-        else {
-          foreach ($coreBlocks as $selector => $fields) {
-            foreach ($fields as $field) {
-              if (!in_array($selector, $block['refresh']) && strpos($fieldName, $field) !== FALSE) {
+    if (isset($profiles) && is_array($profiles)) {
+
+      foreach ($profiles as $profile) {
+        $block =& $blocks['profile']['blocks'][$profile['uf_group_id.name']];
+        foreach ($profile['field_names'] as $fieldName) {
+          $fieldName = strtolower($fieldName);
+          if (str_starts_with($fieldName, 'custom_')) {
+            list(, $customId) = explode('_', $fieldName);
+            foreach ($customFields as $selector => $fields) {
+              if (in_array($customId, $fields) && !in_array($selector, $block['refresh'])) {
                 $block['refresh'][] = $selector;
-                break;
+              }
+            }
+          } else {
+            foreach ($coreBlocks as $selector => $fields) {
+              foreach ($fields as $field) {
+                if (!in_array($selector, $block['refresh']) && strpos($fieldName, $field) !== FALSE) {
+                  $block['refresh'][] = $selector;
+                  break;
+                }
               }
             }
           }

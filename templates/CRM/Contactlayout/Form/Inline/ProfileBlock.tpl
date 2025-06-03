@@ -79,7 +79,7 @@
               {$form.$n.html}
               {if $field.html_type eq 'Autocomplete-Select'}
                 {if $field.data_type eq 'ContactReference'}
-                  {include file="CRM/Custom/Form/ContactReference.tpl" element_name = $n}
+                  {include file="CRM/Custom/Form/ContactReference.tpl" element_name = $n prefix=""}
                 {/if}
               {/if}
             {/if}

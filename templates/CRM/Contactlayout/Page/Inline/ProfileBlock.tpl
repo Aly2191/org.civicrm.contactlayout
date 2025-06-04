@@ -1,5 +1,5 @@
 <div id="{$block.selector|replace:'#':''}"
-  {if $permission EQ 'edit' && !(isset($block.rel_is_missing) && $block.rel_is_missing==true)}
+  {if $permission EQ 'edit' && (!isset($block.rel_is_missing) || !$block.rel_is_missing)}
     class="crm-inline-edit"
     data-dependent-fields={$block.refresh|@json_encode}
     data-edit-params='{ldelim}"cid": "{$contactId}", "rel_cid": "{$relatedContact}", "gid": {$block.profile_id}, "class_name": "CRM_Contactlayout_Form_Inline_ProfileBlock"{rdelim}'
